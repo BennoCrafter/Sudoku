@@ -1,6 +1,7 @@
 import { Board } from "../Board.js";
 import { output } from "./utils/output.js";
 
+
 const board = new Board()
 board.setValue(0, 0, 1);
 board.setValue(2, 2, 9);
@@ -20,3 +21,6 @@ output("1 in 0,1 allowed (F): " + board.setValueAllowed(0,1,1))
 output("1 in 1,1 allowed (F): " + board.setValueAllowed(1,1,1))
 output("2 in 0,1 allowed (T): " + board.setValueAllowed(0,1,2))
 output("9 in 0,1 allowed (F): " + board.setValueAllowed(0,1,9))
+
+let filename = "../../../assets/exampleBoards/example02.txt"
+

@@ -1,9 +1,11 @@
-import {React, useCallback, useEffect, useState} from "react";
+import { React, useCallback, useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
+
 SplashScreen.preventAutoHideAsync();
+
 const sudokuValues = [
   [5, 3, null, null, 7, null, null, null, null],
   [6, null, null, 1, 9, 5, null, null, null],
@@ -15,8 +17,9 @@ const sudokuValues = [
   [null, null, null, 4, 1, 9, null, null, 5],
   [null, null, null, null, 8, null, null, 7, 9],
 ];
+
 export default function App() {
-const [selectedCell, setSelectedCell] = useState([])
+  const [selectedCell, setSelectedCell] = useState([]);
 
   const [fontsLoaded, fontError] = useFonts({
     roboto: require("../assets/Roboto-Bold.ttf"),
@@ -34,27 +37,30 @@ const [selectedCell, setSelectedCell] = useState([])
   if (!fontsLoaded && !fontError) {
     return null;
   }
-
+  
   const renderSudokuGrid = () => {
     return sudokuValues.map((row, rowIndex) => (
       <View key={rowIndex} style={styles.row}>
         {row.map((colum, columIndex) => (
           <TouchableOpacity
             key={`${rowIndex}-${columIndex}`}
-            style={[styles.cell, (selectedCell[0] === rowIndex && selectedCell[1] === columIndex) ? styles.selectedCellStyle : null]}
+            style={[
+              styles.cell,
+              selectedCell[0] === rowIndex && selectedCell[1] === columIndex
+                ? styles.selectedCellStyle
+                : null,
+            ]}
             onPress={() => setSelectedCell([rowIndex, columIndex])}
           >
-            <Text style={styles.cellItem}>{colum || ''}</Text>
+            <Text style={styles.cellItem}>{colum || ""}</Text>
           </TouchableOpacity>
         ))}
       </View>
     ));
   };
-  
 
   return (
     <View style={styles.container}>
-
       {/* Sudoku Grid */}
       <View style={styles.grid}>{renderSudokuGrid()}</View>
     </View>
@@ -62,7 +68,6 @@ const [selectedCell, setSelectedCell] = useState([])
 }
 
 // Function to render the Sudoku grid
-
 
 // Styles
 const styles = StyleSheet.create({
@@ -91,10 +96,10 @@ const styles = StyleSheet.create({
   },
   cellItem: {
     fontSize: 20,
-    fontFamily: "roboto"
+    fontFamily: "roboto",
   },
   selectedCellStyle: {
     borderColor: "blue",
-    borderWidth: 3
-  }
+    borderWidth: 3,
+  },
 });

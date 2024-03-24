@@ -10,8 +10,8 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
 	const [selectedCell, setSelectedCell] = useState([]);
 	const [board, setBoard] = useState(new Board());
-  const [, updateState] = useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
+	const [, updateState] = useState();
+	const forceUpdate = useCallback(() => updateState({}), []);
 	board.setValue(0, 1, 1);
 
 	const [fontsLoaded, fontError] = useFonts({
@@ -66,8 +66,16 @@ export default function App() {
 					key={i}
 					style={styles.numberButton}
 					onPress={() => {
-						board.setValue(selectedCell[0], selectedCell[1], i);
-            forceUpdate()
+						if (
+							board.setValueAllowed(
+								selectedCell[0],
+								selectedCell[1],
+								i
+							)
+						) {
+							board.setValue(selectedCell[0], selectedCell[1], i);
+							forceUpdate();
+						}
 					}}
 				>
 					<Text style={styles.numberText}>{i}</Text>
